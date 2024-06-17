@@ -39,10 +39,11 @@ const loginUser = async () => {
       password: password.value,
     });
     const token = response.data.token;
+    const userId = response.data.userId;
 
     // Handle successful login: Store token in Pinia store, redirect to Home page
     console.log("Login successful");
-    authStore.setToken(token);
+    authStore.setToken(token, userId);
     router.push("/");
   } catch (err) {
     // Error handling

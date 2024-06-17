@@ -84,7 +84,7 @@ router.post("/api/login", async (req, res) => {
       );
 
       // Respond with token
-      res.status(200).json({ token });
+      res.status(200).json({ token, userId: results[0].id });
     });
   } catch (error) {
     console.error("Error logging in:", error);

@@ -1,21 +1,24 @@
 <template>
   <nav class="navbar">
     <RouterLink to="/">Home</RouterLink>
-    <div class="auth-links" v-if="!loggedIn">
+    <div class="auth-links" v-if="!isLoggedIn">
       <RouterLink to="/login">Login</RouterLink>
       <RouterLink to="/register">Register</RouterLink>
     </div>
     <div class="user-menu" v-else>
-      <span>Hello {{ user.name }}</span>
+      <div>Hello user</div>
+      <button @click="authStore.clearToken()">Logout</button>
     </div>
   </nav>
 </template>
 
 <script setup>
-const loggedIn = false;
-const user = {
-  name: "TestName",
-};
+import { computed } from "vue";
+import { useAuthStore } from "@/stores/authStore";
+
+// Check if the user is logged in via auth store
+const authStore = useAuthStore();
+const isLoggedIn = computed(() => !!authStore.token);
 </script>
 
 <style scoped>

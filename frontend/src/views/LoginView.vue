@@ -19,6 +19,11 @@
 <script setup>
 import { ref } from "vue";
 import axios from "axios";
+import { useAuthStore } from "@/stores/authStore.js";
+import { useRouter } from "vue-router";
+
+const authStore = useAuthStore();
+const router = useRouter();
 
 // Initialize data
 const username = ref("");
@@ -33,10 +38,12 @@ const loginUser = async () => {
       username: username.value,
       password: password.value,
     });
-    console.log(response.data);
+    const token = response.data.token;
 
-    // Handle successful login
+    // Handle successful login: Store token in Pinia store, redirect to Home page
     console.log("Login successful");
+    authStore.setToken(token);
+    router.push("/");
   } catch (err) {
     // Error handling
     console.error("Error logging in:", err.response.data.error);

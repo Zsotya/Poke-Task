@@ -1,5 +1,5 @@
 <template>
-  <div class="logged-out-view" v-if="!loggedIn">
+  <div class="logged-out-view" v-if="!isLoggedIn">
     <HomeLoggedOut />
   </div>
   <div class="logged-in-view" v-else>
@@ -8,10 +8,14 @@
 </template>
 
 <script setup>
+import { computed } from "vue";
+import { useAuthStore } from "@/stores/authStore";
 import HomeLoggedOut from "@/components/HomeLoggedOut.vue";
 import HomeLoggedIn from "@/components/HomeLoggedIn.vue";
 
-const loggedIn = true;
+// Check if the user is logged in via auth store
+const authStore = useAuthStore();
+const isLoggedIn = computed(() => !!authStore.token);
 </script>
 
 <style scoped></style>

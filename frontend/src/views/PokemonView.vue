@@ -14,23 +14,29 @@
         {{ ability }}
       </span>
     </p>
+    <button @click="toggleCatch(authStore.userId)">
+      {{ isOwned ? "Release" : "Catch" }}
+    </button>
   </div>
   <p v-else-if="loading" class="loading">Loading...</p>
   <p v-if="error" class="error">{{ error }}</p>
 </template>
 
 <script setup>
-import { ref, computed, onMounted, watch } from "vue";
+import { ref, computed, onMounted } from "vue";
 import { useRoute } from "vue-router";
 import axios from "axios";
+import { useAuthStore } from "@/stores/authStore.js";
 
 // Get the current route to access the "name" parameter
 const route = useRoute();
+const authStore = useAuthStore();
 
 // Initialize reactive data
 const pokemon = ref(null);
 const loading = ref(false);
 const error = ref("");
+const isOwned = ref(false);
 
 // Capitalize first letter of the names
 const capitalizeFirstLetter = (string) => {
@@ -46,6 +52,8 @@ const fetchPokemon = async (name) => {
       `https://pokeapi.co/api/v2/pokemon/${name}`
     );
     pokemon.value = response.data;
+    // Check if the Pokemon is owned by the current user
+    isOwned.value = await checkIfPokemonIsOwned(name, authStore.userId);
   } catch (err) {
     console.error("Error fetching Pokémon:", err);
     error.value = "Failed to fetch Pokémon data.";
@@ -67,6 +75,43 @@ const abilities = computed(() => {
       .map((ability) => capitalizeFirstLetter(ability.ability.name)) || []
   );
 });
+
+// Check to see if Pokémon is owned by the user
+const checkIfPokemonIsOwned = async (name, userId) => {
+  try {
+    const response = await axios.post(
+      `http://localhost:3000/api/owned-pokemons/check`,
+      { name, userId }
+    );
+    return response.data.owned;
+  } catch (error) {
+    console.error("Error checking if Pokémon is owned:", error);
+    return false; // False, if error occurs
+  }
+};
+
+// Catch / Release the Pokémon
+const toggleCatch = async (userId) => {
+  try {
+    if (isOwned.value) {
+      // Release the Pokémon
+      await axios.post(`http://localhost:3000/api/release-pokemon`, {
+        name: pokemon.value.name,
+        userId: userId,
+      });
+    } else {
+      // Catch the Pokémon
+      await axios.post(`http://localhost:3000/api/catch-pokemon`, {
+        name: pokemon.value.name,
+        userId: userId,
+      });
+    }
+    // Toggle isOwned's value after successful action
+    isOwned.value = !isOwned.value;
+  } catch (error) {
+    console.error("Error catching/releasing Pokémon:", error);
+  }
+};
 </script>
 
 <style scoped>

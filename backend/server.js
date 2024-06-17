@@ -18,9 +18,11 @@ app.use(
 
 // Routes imports
 const authenticationRoutes = require("./routes/authentication");
+const pokemonRoutes = require("./routes/pokemon");
 
 // Routes usage
 app.use(authenticationRoutes);
+app.use(pokemonRoutes);
 
 // Starting the server
 app.listen(PORT, () => {

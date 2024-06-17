@@ -1,14 +1,26 @@
 const express = require("express");
 const app = express();
 const PORT = process.env.PORT || 3000;
+const cors = require("cors");
 
-// Middleware to parse JSON
+/* Middlewares */
+
+// JSON parsing
 app.use(express.json());
 
-// Base route
-app.get("/", (req, res) => {
-  res.send("Test route");
-});
+// CORS to allow requests from specified origin
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
+  })
+);
+
+// Routes imports
+const authenticationRoutes = require("./routes/authentication");
+
+// Routes usage
+app.use(authenticationRoutes);
 
 // Starting the server
 app.listen(PORT, () => {

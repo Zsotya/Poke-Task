@@ -8,7 +8,9 @@
     />
     <ul v-if="filteredPokemons.length > 0" class="pokemon-list">
       <li v-for="pokemon in filteredPokemons" :key="pokemon.name">
-        {{ capitalizeFirstLetter(pokemon.name) }}
+        <router-link :to="`/pokemon/${pokemon.name}`">
+          {{ capitalizeFirstLetter(pokemon.name) }}
+        </router-link>
       </li>
     </ul>
     <p v-else-if="searchQuery && !loading">No Pokémon found with that name.</p>

@@ -23,7 +23,9 @@
       <h2>{{ capitalizeFirstLetter(selectedType) }} Pokémon</h2>
       <ul>
         <li v-for="pokemon in pokemons" :key="pokemon.name">
-          {{ capitalizeFirstLetter(pokemon.name) }}
+          <router-link :to="`/pokemon/${pokemon.name}`">
+            {{ capitalizeFirstLetter(pokemon.name) }}</router-link
+          >
         </li>
       </ul>
     </div>

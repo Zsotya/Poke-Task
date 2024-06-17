@@ -11,7 +11,7 @@
 import HomeLoggedOut from "@/components/HomeLoggedOut.vue";
 import HomeLoggedIn from "@/components/HomeLoggedIn.vue";
 
-const loggedIn = false;
+const loggedIn = true;
 </script>
 
 <style scoped></style>

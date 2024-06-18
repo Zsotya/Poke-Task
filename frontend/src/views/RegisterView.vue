@@ -21,12 +21,19 @@
       </div>
       <button type="submit">Register</button>
     </form>
+    <div class="success" v-if="success">
+      Registration successful! Redirecting to login page...
+    </div>
   </div>
 </template>
 
 <script setup>
 import axios from "axios";
 import { ref } from "vue";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+const success = ref(false);
 
 // Initialize form data
 const formData = ref({
@@ -44,8 +51,11 @@ const registerUser = async () => {
       email: formData.value.email,
       password: formData.value.password,
     });
-    // Success handling
-    console.log("Registration successful:", response.data);
+    // Success handling: Display success message, then push to login page
+    success.value = true;
+    setTimeout(() => {
+      router.push("/login");
+    }, 3000);
   } catch (error) {
     // Error handling
     console.error("Error registering user:", error.response.data);

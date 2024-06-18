@@ -92,4 +92,27 @@ router.post("/api/release-pokemon", async (req, res) => {
   }
 });
 
+// POST /api/owned-pokemons/user - Get all Pokémon owned by the user
+router.post("/api/owned-pokemons", async (req, res) => {
+  const { userId } = req.body;
+
+  try {
+    const query = `
+      SELECT pokemon_name AS name
+      FROM owned_pokemons
+      WHERE user_id = ? AND owned = true
+    `;
+    const [results] = await db.promise().query(query, [userId]);
+
+    const pokemons = results.map((row) => ({
+      name: row.name,
+    }));
+
+    res.json({ pokemons });
+  } catch (err) {
+    console.error("Error fetching owned Pokémon:", err);
+    res.status(500).json({ error: "Failed to fetch owned Pokémon" });
+  }
+});
+
 module.exports = router;

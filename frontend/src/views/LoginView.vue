@@ -24,7 +24,7 @@
           />
         </div>
         <button class="form-button" type="submit">
-          <img src="@/assets/pokeball.png" alt="Register" class="icon" />
+          <img src="@/assets/pokeball.png" alt="Login" class="icon" />
           <span>Login</span>
         </button>
         <Transition name="fade" appear>
@@ -134,16 +134,13 @@ const loginUser = async () => {
   font-weight: bold;
   padding: 10px 20px;
   margin: 10px 0px;
-  border: none;
   border-radius: 16px;
   cursor: pointer;
   transition: all 0.3s;
   font-family: "Press Start 2P", cursive;
   text-decoration: none;
   width: 100%;
-}
-
-.form-button {
+  max-width: 26ch;
   background-color: #3b4cca;
   color: #ffcb05;
   border: 2px solid #ffcb05;
@@ -181,5 +178,12 @@ const loginUser = async () => {
 
 .fade-enter-to {
   opacity: 1;
+}
+
+.register-nav {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 </style>

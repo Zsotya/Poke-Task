@@ -1,9 +1,11 @@
 <template>
-  <div class="logged-out-view" v-if="!isLoggedIn">
-    <HomeLoggedOut />
-  </div>
-  <div class="logged-in-view" v-else>
-    <HomeLoggedIn />
+  <div class="home-container">
+    <div class="logged-out-view" v-if="!isLoggedIn">
+      <HomeLoggedOut />
+    </div>
+    <div class="logged-in-view" v-else>
+      <HomeLoggedIn />
+    </div>
   </div>
 </template>
 
@@ -18,4 +20,9 @@ const authStore = useAuthStore();
 const isLoggedIn = computed(() => !!authStore.token);
 </script>
 
-<style scoped></style>
+<style scoped>
+.home-container {
+  height: 91vh;
+  background-color: #e8ba01;
+}
+</style>

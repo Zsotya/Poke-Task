@@ -36,9 +36,10 @@ const isLoggedIn = computed(() => !!authStore.token);
 .navbar {
   display: flex;
   justify-content: space-between;
+  height: 9vh;
   align-items: center;
   padding: 14px 20px;
-  background: linear-gradient(45deg, #ffcb05, #3b4cca);
+  background: linear-gradient(360deg, #e8ba01, #3b4cca);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   font-family: "Press Start 2P", cursive;
 }
@@ -50,7 +51,7 @@ const isLoggedIn = computed(() => !!authStore.token);
 
 .logo {
   height: 50px;
-  margin-left: 10px;
+  margin-left: 24px;
   transition: transform 0.3s;
 }
 
@@ -85,6 +86,7 @@ const isLoggedIn = computed(() => !!authStore.token);
   background-color: #ffcb05;
   color: #3b4cca;
   border: 2px solid #3b4cca;
+  margin-right: 24px;
 }
 
 .login-btn:hover,

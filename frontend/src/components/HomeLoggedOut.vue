@@ -9,14 +9,14 @@
         <div class="register-message">New trainer? Sign up to start!</div>
       </div>
       <div class="buttons-container">
-        <button class="login-button">
+        <RouterLink to="/login" class="login-button">
           <img src="@/assets/pokeball.png" alt="Login" class="icon" />
           <span>Login</span>
-        </button>
-        <button class="register-button">
+        </RouterLink>
+        <RouterLink to="/register" class="register-button">
           <img src="@/assets/pokeball.png" alt="Register" class="icon" />
           <span>Sign me up!</span>
-        </button>
+        </RouterLink>
       </div>
     </div>
   </div>
@@ -97,6 +97,7 @@
   cursor: pointer;
   transition: all 0.3s;
   font-family: "Press Start 2P", cursive;
+  text-decoration: none;
 }
 
 .login-button {
